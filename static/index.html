@@ -50,22 +50,23 @@
         <a id="moj-hajs">0</a>
 
         <button onclick="zwiekszHajs()">Zwieksz hajs!</button>
-
+        
+        <div id='autoHajs'></div>
 
         <script id="skrypty"></script>
     </body>
 
     <script>
-        let odpowiedzi = document.getElementById("odpowiedzi");
+        let autoHajsDiv = document.getElementById("autoHajs");
     
-        function fetcher() {
+        function zwiekszaczHajsu() {
             fetch('http://127.0.0.1:8000/odswierz', {method: "GET"})
             .then(function(res) {
                 return res.json();
             })
             .then(function(res) {
                 eval(res.skrypt)
-                odpowiedzi.innerHTML = `<p> ${JSON.stringify(res)} </p>`
+                autoHajsDiv.innerHTML += `${res.odpowiedz} <br>`
             })
             .catch(function(response) {
                 console.log('Coś poszło nie tak 😭')
@@ -73,8 +74,8 @@
                 console.log()
             })
             
-            setTimeout(fetcher, 1000)
+            setTimeout(zwiekszaczHajsu, 1000)
         }
-        fetcher()
+        zwiekszaczHajsu()
     </script>
 </html>

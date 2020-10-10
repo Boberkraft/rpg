@@ -12,12 +12,13 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 js_zwiekszajacy_hajs = { "skrypt": """
     let div = document.getElementById('moj-hajs');
     div.innerHTML = parseInt(div.innerHTML) + 1;
-"""}
+""" }
 
     
 @app.get("/odswierz")
 def odswierz():
-    return js_zwiekszajacy_hajs
+    js_zwiekszajacy_hajs["odpowiedz"] =  random.sample(["🤩","🥳","🥰"], 1)
+    return js_zwiekszajacy_hajs 
 
 @app.get("/zwieksz_hajs")
 def zwieksz_hajs():
