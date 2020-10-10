@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        Siema
+
+        <script>
+            function zwiekszHajs() {
+                let skrypty = document.getElementById("skrypty");
+
+                fetch('http://127.0.0.1:8000/zwieksz_hajs', {method: "GET"})
+                .then(function(res) {
+                    return res.json();
+                })
+                .then(function(res) {
+                    eval(res.skrypt);
+                })
+            }
+        </script>
+    </head>
+
+    <body>
+        <p>
+            Test
+        </p>
+
+        Ile mam pienidzy:
+        <a id="moj-hajs">0</a>
+        <button onclick="zwiekszHajs()">Zwieksz hajs!</button>
+    
+        <div id="odpowiedzi">
+
+        </div>
+
+        <script id="skrypty">
+
+        </script>
+    </body>
+
+    <script>
+        let odpowiedzi = document.getElementById("odpowiedzi");
+          
+
+    
+        function fetcher() {
+            fetch('http://127.0.0.1:8000/odswierz', {method: "GET"})
+            .then(function(res) {
+                return res.json();
+            })
+            .then(function(res) {
+                console.log('ok!');
+                console.log(res);
+                eval(res.skrypt)
+                odpowiedzi.innerHTML = `<p> ${JSON.stringify(res)} </p>`
+            })
+            .catch(function(response) {
+                console.log('Coś poszło nie tak 😭')
+                console.log(response)
+                console.log()
+            })
+            
+            setTimeout(fetcher, 1000)
+        }
+        fetcher()
+    </script>
+</html>
