@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html>
     <head>
-        Siema
-
         <script>
             function zwiekszHajs() {
                 let skrypty = document.getElementById("skrypty");
@@ -15,18 +13,36 @@
                     eval(res.skrypt);
                 })
             }
+
+            function pokazZart() {
+                let zartyDiv = document.getElementById("zarty");
+
+                fetch('http://127.0.0.1:8000/daj_zart', {method: "GET"})
+                .then(function(res) {
+                    return res.json();
+                })
+                .then(function(res) {
+                    zartyDiv.innerHTML += `<p>${res.zart}</p>`;
+                })
+            }
         </script>
     </head>
 
     <body>
-        <p>
-            Test
-        </p>
+
+        <button onclick="pokazZart()">Losowy zart!</button>
+
+        <br>
 
         Ile mam pienidzy:
         <a id="moj-hajs">0</a>
+
         <button onclick="zwiekszHajs()">Zwieksz hajs!</button>
     
+        <div id="zarty">
+
+        </div>
+
         <div id="odpowiedzi">
 
         </div>
@@ -47,8 +63,6 @@
                 return res.json();
             })
             .then(function(res) {
-                console.log('ok!');
-                console.log(res);
                 eval(res.skrypt)
                 odpowiedzi.innerHTML = `<p> ${JSON.stringify(res)} </p>`
             })
