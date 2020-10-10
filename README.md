@@ -8,7 +8,11 @@ https://fastapi.tiangolo.com/
 zainstaluj:
 
 `pip install aiofiles`
+
+
 `pip install fastapi`
+
+
 `pip install uvicorn`
 
 uruchom:
