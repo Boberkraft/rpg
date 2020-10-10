@@ -14,15 +14,18 @@
                 })
             }
 
-            function pokazZart() {
-                let zartyDiv = document.getElementById("zarty");
+            function dodajGracza() {
+                let input = document.getElementById("imieGracza"),
+                    gracze = document.getElementById("gracze");
 
-                fetch('http://127.0.0.1:8000/daj_zart', {method: "GET"})
+                fetch('http://127.0.0.1:8000/dodaj_gracza', 
+                    { method: "POST",
+                     body: JSON.stringify({ imie: input.value })})
                 .then(function(res) {
                     return res.json();
                 })
                 .then(function(res) {
-                    zartyDiv.innerHTML += `<p>${res.zart}</p>`;
+                    gracze.innerHTML = res.gracze
                 })
             }
         </script>
@@ -30,7 +33,16 @@
 
     <body>
 
-        <button onclick="pokazZart()">Losowy zart!</button>
+        Gracze:
+        <div id="gracze">
+
+        </div>
+
+        <br><br>
+
+        Imie:
+        <input type="text" id='imieGracza'/>
+        <button onclick="dodajGracza()">Dodaj gracza!</button>
 
         <br>
 
@@ -38,24 +50,13 @@
         <a id="moj-hajs">0</a>
 
         <button onclick="zwiekszHajs()">Zwieksz hajs!</button>
-    
-        <div id="zarty">
 
-        </div>
 
-        <div id="odpowiedzi">
-
-        </div>
-
-        <script id="skrypty">
-
-        </script>
+        <script id="skrypty"></script>
     </body>
 
     <script>
         let odpowiedzi = document.getElementById("odpowiedzi");
-          
-
     
         function fetcher() {
             fetch('http://127.0.0.1:8000/odswierz', {method: "GET"})

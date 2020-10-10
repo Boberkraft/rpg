@@ -5,6 +5,8 @@ import random
 
 app = FastAPI()
 
+gracze = []
+
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
 js_zwiekszajacy_hajs = { "skrypt": """
@@ -21,12 +23,7 @@ def odswierz():
 def zwieksz_hajs():
     return js_zwiekszajacy_hajs
 
-@app.get("/daj_zart")
-def daj_zart():
-    zarty = [
-        'Wiesz jak ma na imie moja mama? Andrzej!',
-        'Wiesz czemu nie ma mnie w domu? Bo sram!',
-        'Wiesz za co kain zabił abla? Za ciągniecie kabla!',
-        'Hehehehe'
-    ]
-    return { "zart": random.sample(zarty, 1) }
+@app.post("/dodaj_gracza")
+def dodaj_gracza(body: dict):
+    gracze.append(body['imie'])
+    return { "gracze": gracze }
